@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Axenor Global Services – Team Portal</title>
+  <style>
+    :root{
+      --bg:#0c0c0f;
+      --card:#141419;
+      --text:#ffffff;
+      --muted:#b8b8bf;
+      --ring:#25c2ff;
+      --shadow: 0 10px 25px rgba(0,0,0,.45);
+      --radius: 20px;
+
+      --accent-1:#4aa3ff;  /* Attendance */
+      --accent-2:#ffd166;  /* Data Entry Share Folder */
+      --accent-3:#7bd389;  /* Daily Point */
+      --accent-4:#ff8fab;  /* QC Share Folder */
+      --accent-5:#c69bff;  /* Permission */
+      --accent-6:#ffa94d;  /* Ticket */
+      --accent-x:#ff6b6b;  /* Close */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(37,194,255,.08), transparent 60%),
+                  radial-gradient(1000px 700px at 110% 10%, rgba(255,107,107,.08), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+    }
+
+    .container{max-width:1100px; margin:0 auto; padding:28px 18px 48px}
+
+    header{display:grid; gap:8px; justify-items:center; margin-bottom:22px}
+    .brand{font-weight:800; letter-spacing:.5px; font-size: clamp(22px, 2.3vw, 34px)}
+    .brand strong{background:linear-gradient(90deg,var(--ring),#a78bfa 60%,#ff6b6b); -webkit-background-clip:text; background-clip:text; color:transparent}
+
+    .grid{
+      display:grid; gap:18px; 
+      grid-template-columns: repeat( auto-fit, minmax(220px,1fr) );
+      align-items:stretch;
+    }
+
+    .card{
+      position:relative; isolation:isolate; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      padding:20px 18px; 
+      box-shadow: var(--shadow);
+      cursor:pointer; outline:none; 
+      transform: translate3d(0,0,0);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+      overflow:hidden;
+    }
+    .card::before{
+      content:""; position:absolute; inset:-2px; z-index:-1; border-radius:inherit; filter: blur(16px); opacity:.55; transition:opacity .25s ease;
+      background: conic-gradient(from 140deg, transparent 0 20%, currentColor 22% 28%, transparent 30% 70%, currentColor 72% 78%, transparent 80% 100%);
+    }
+    .card:hover{ transform: translateY(-6px) scale(1.01); box-shadow: 0 14px 40px rgba(0,0,0,.55) }
+    .card:focus-visible{ box-shadow: 0 0 0 3px rgba(37,194,255,.35), var(--shadow); border-color: rgba(37,194,255,.6) }
+
+    .iconwrap{width:56px; height:56px; display:grid; place-items:center; border-radius:16px; margin-bottom:14px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10)}
+    .title{font-weight:700; font-size:18px; letter-spacing:.2px; color:var(--text)}
+    .desc{color:var(--muted); font-size:14px; line-height:1.5; margin-top:6px}
+
+    .card .shine{ position:absolute; inset:-1px; border-radius:inherit; background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.06), transparent 70%); transform: translateX(-100%); animation: shine 2.8s ease-in-out infinite; pointer-events:none }
+    @keyframes shine{ 0%{transform:translateX(-120%)} 55%{transform:translateX(120%)} 100%{transform:translateX(120%)} }
+
+    .card:hover .iconwrap{ animation: float 2s ease-in-out infinite }
+    @keyframes float{ 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } }
+
+    .card[data-accent="1"], .card[data-accent="1"] * { color: var(--accent-1) }
+    .card[data-accent="2"], .card[data-accent="2"] * { color: var(--accent-2) }
+    .card[data-accent="3"], .card[data-accent="3"] * { color: var(--accent-3) }
+    .card[data-accent="4"], .card[data-accent="4"] * { color: var(--accent-4) }
+    .card[data-accent="5"], .card[data-accent="5"] * { color: var(--accent-5) }
+    .card[data-accent="6"], .card[data-accent="6"] * { color: var(--accent-6) }
+    .card[data-accent="x"], .card[data-accent="x"] * { color: var(--accent-x) }
+
+    footer{margin-top:26px; text-align:center; color:var(--muted); font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header aria-label="Axenor header">
+      <div class="brand" aria-label="brand">Axenor Global Services – <strong>Team Portal</strong></div>
+    </header>
+
+    <main class="grid" id="cards" aria-label="Quick link cards">
+      <button class="card" data-key="attendance" data-accent="1">
+        <span class="shine"></span>
+        <div class="iconwrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"></rect><path d="M16 2v4M8 2v4M3 10h18"></path><path d="M8.5 15l2 2 4-4"></path></svg>
+        </div>
+        <div class="title">Attendance</div>
+        <div class="desc">Mark and view attendance</div>
+      </button>
+
+      <button class="card" data-key="shareFolder" data-accent="2">
+        <span class="shine"></span>
+        <div class="iconwrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+        </div>
+        <div class="title">Data Entry Share Folder</div>
+        <div class="desc">Shared folder for data entry</div>
+      </button>
+
+      <button class="card" data-key="dailyPoint" data-accent="3">
+        <span class="shine"></span>
+        <div class="iconwrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-6"></path></svg>
+        </div>
+        <div class="title">Daily Point</div>
+        <div class="desc">Track daily performance</div>
+      </button>
+
+      <button class="card" data-key="qcFolder" data-accent="4">
+        <span class="shine"></span>
+        <div class="iconwrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19V5a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v14"></path><polyline points="2 19 12 12 22 19"></polyline></svg>
+        </div>
+        <div class="title">QC Share Folder</div>
+        <div class="desc">Shared folder for quality checks</div>
+      </button>
+
+      <button class="card" data-key="permission" data-accent="5">
+        <span class="shine"></span>
+        <div class="iconwrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><rect x="4" y="4" width="16" height="18" rx="3"/><path d="M8 10h8M8 14h6M8 18h4"/></svg>
+        </div>
+        <div class="title">Permission</div>
+        <div class="desc">Apply for leave or permission</div>
+      </button>
+
+      <button class="card" data-key="ticket" data-accent="6">
+        <span class="shine"></span>
+        <div class="iconwrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a2 2 0 0 0-2 2 2 2 0 0 0 2 2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a2 2 0 0 0 2-2 2 2 0 0 0-2-2z"></path><path d="M8 9v6M12 9v6M16 9v6"></path></svg>
+        </div>
+        <div class="title">Ticket</div>
+        <div class="desc">Raise support tickets</div>
+      </button>
+
+      <button class="card" data-key="close" data-accent="x">
+        <span class="shine"></span>
+        <div class="iconwrap">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"></path><path d="M5.5 5.5a8.5 8.5 0 1 0 13 0"></path></svg>
+        </div>
+        <div class="title">Close</div>
+        <div class="desc">Exit this portal</div>
+      </button>
+    </main>
+  </div>
+
+  <script>
+    const LINKS = {
+      attendance:     'https://docs.google.com/forms/d/e/1FAIpQLSeXKiXQSfFe6p4YuKr6dB9XHH6wpCnEQfAm5SBYj-P_MP-ESQ/viewform?usp=sharing&ouid=105973298206128175177',
+      shareFolder:    'https://docs.google.com/spreadsheets/d/1wQmnOg7u6kRpjhP-jycfFkARBJvLmmaclv4Dkcc3qyU/edit?usp=sharing',
+      dailyPoint:     'https://docs.google.com/spreadsheets/d/1EEZXIFrogZsL_meH_pR43WsBvBOh68dtsfZjGEYo8C0/edit?usp=sharing',
+      qcFolder:       'https://docs.google.com/spreadsheets/d/1wQmnOg7u6kRpjhP-jycfFkARBJvLmmaclv4Dkcc3qyU/edit?usp=sharing',
+      permission:     'https://docs.google.com/forms/d/e/1FAIpQLSfrw-60g8HjZrz9Wvs6MjS5Px1NXROw2Snuxt7KKnlvajoO-g/viewform?usp=sharing&ouid=105973298206128175177',
+      ticket:         'https://docs.google.com/forms/d/e/1FAIpQLSdx3MxEGnhWt2tUMWkXcTvkWrjqQcZLTbSrVrnsVnKdi6dWPA/viewform?usp=sharing&ouid=105973298206128175177',
+    };
+
+    function openLink(url){
+      if(!url || url === '#'){
+        alert('Link not yet set. Please configure the correct URL in the code.');
+        return;
+      }
+      const win = window.open(url, '_blank', 'noopener');
+      if(!win){ alert('Popup blocked. Please allow pop‑ups for this site.'); }
+    }
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        const key = card.getAttribute('data-key');
+        if(key === 'close'){
+          window.close();
+          document.body.style.transition = 'opacity .35s ease';
+          document.body.style.opacity = '0';
+          setTimeout(()=>{ location.href = 'about:blank'; }, 380);
+          return;
+        }
+        openLink(LINKS[key]);
+      });
+    });
+  </script>
+</body>
+</html>
